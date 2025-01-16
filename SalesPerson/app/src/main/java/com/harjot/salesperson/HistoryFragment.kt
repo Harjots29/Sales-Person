@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.harjot.salesperson.databinding.FragmentHistoryBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -25,6 +27,7 @@ class HistoryFragment : Fragment() {
     val binding by lazy {
         FragmentHistoryBinding.inflate(layoutInflater)
     }
+    var auth = Firebase.auth
     private lateinit var recyclerView: RecyclerView
     private val database = FirebaseFirestore.getInstance()
     private val collectionName = "SalesPerson"
@@ -86,17 +89,28 @@ class HistoryFragment : Fragment() {
             .addOnSuccessListener { documents ->
                 val list = mutableListOf<TableModel>()
                 for (document in documents) {
-                    val id = document.id
-                    val vendorName = document.getString("vendorName") ?: ""
-                    val inTime = document.getString("inTime") ?: ""
-                    val outTime = document.getString("outTime") ?: ""
-                    val productName = document.getString("productName") ?: ""
-                    val quantity = document.getString("quantity") ?: ""
+                    val salesId = document.getString("id") ?: ""
+                    if (salesId == auth.currentUser?.uid) {
+                        val id = document.id
+                        val vendorName = document.getString("vendorName") ?: ""
+                        val inTime = document.getString("inTime") ?: ""
+                        val outTime = document.getString("outTime") ?: ""
+                        val productName = document.getString("productName") ?: ""
+                        val quantity = document.getString("quantity") ?: ""
 
-                    Toast.makeText(mainActivity, "${productName}", Toast.LENGTH_SHORT).show()
-                    if(productName!=null){
-                        list.add(TableModel(id, vendorName, inTime, outTime, productName, quantity))
-                    }
+                        if (productName != null) {
+                            list.add(
+                                TableModel(
+                                    id,
+                                    vendorName,
+                                    inTime,
+                                    outTime,
+                                    productName,
+                                    quantity
+                                )
+                            )
+                        }
+                    }else{ }
                 }
                 recyclerView.adapter = TableAdapter(list)
             }

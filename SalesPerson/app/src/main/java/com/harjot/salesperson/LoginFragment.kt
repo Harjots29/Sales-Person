@@ -82,6 +82,7 @@ class LoginFragment : Fragment(){
                         binding.btnLogin.visibility = View.VISIBLE
                         binding.linearLayout.visibility = View.VISIBLE
                         findNavController().navigate(R.id.home)
+                        
                         Toast.makeText(mainActivity, "Login Successfully", Toast.LENGTH_SHORT).show()
 
                     }
