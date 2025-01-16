@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/home"
+        android:name="com.harjot.salesperson.Home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/inFragment"
+        android:name="com.harjot.salesperson.InFragment"
+        android:label="fragment_in"
+        tools:layout="@layout/fragment_in" />
+    <fragment
+        android:id="@+id/outFragment"
+        android:name="com.harjot.salesperson.OutFragment"
+        android:label="fragment_out"
+        tools:layout="@layout/fragment_out" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.harjot.salesperson.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.harjot.salesperson.HistoryFragment"
+        android:label="HistoryFragment" />
+</navigation>
