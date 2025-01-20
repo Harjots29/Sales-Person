@@ -4,17 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
-class TableAdapter(private val items: List<TableModel>) :
+class TableAdapter(private val items: List<TableModel>,var historyInterface: HistoryInterface) :
     RecyclerView.Adapter<TableAdapter.TableViewHolder>() {
 
     class TableViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvVendorName: TextView = view.findViewById(R.id.tvVendorName)
         val tvInTime: TextView = view.findViewById(R.id.tvInTime)
         val tvOutTime: TextView = view.findViewById(R.id.tvOutTime)
-        val tvProductName: TextView = view.findViewById(R.id.tvProductName)
-        val tvQuantity: TextView = view.findViewById(R.id.tvQuantity)
+        val date : TextView = view.findViewById(R.id.tvDate)
+        var cardView : CardView = view.findViewById(R.id.cv)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TableViewHolder {
@@ -28,8 +29,10 @@ class TableAdapter(private val items: List<TableModel>) :
         holder.tvVendorName.text = item.vendorName
         holder.tvInTime.text = item.inTime
         holder.tvOutTime.text = item.outTime
-        holder.tvProductName.text = item.productName
-        holder.tvQuantity.text = item.quantity
+        holder.date.text = item.date
+        holder.cardView.setOnClickListener {
+            historyInterface.details(position)
+        }
     }
 
     override fun getItemCount(): Int = items.size

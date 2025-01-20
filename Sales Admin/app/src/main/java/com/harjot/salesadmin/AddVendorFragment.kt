@@ -2,14 +2,17 @@ package com.harjot.salesadmin
 
 import android.app.Dialog
 import android.content.ContentValues
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentActivity
@@ -38,7 +41,7 @@ class AddVendorFragment : Fragment(),Interfaces {
     val binding by lazy {
         FragmentAddVendorBinding.inflate(layoutInflater)
     }
-    lateinit var mainActivity: MainActivity
+    lateinit var mainScreenActivity: MainScreenActivity
     var arrayList = ArrayList<VendorModel>()
     lateinit var adapter : VendorAdapter
 
@@ -51,23 +54,13 @@ class AddVendorFragment : Fragment(),Interfaces {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainActivity = activity as MainActivity
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+        mainScreenActivity = activity as MainScreenActivity
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
         adapter = VendorAdapter(arrayList,this)
-        binding.rvList.layoutManager = LinearLayoutManager(mainActivity)
+        binding.rvList.layoutManager = LinearLayoutManager(mainScreenActivity)
         binding.rvList.adapter = adapter
 
-        mainActivity.binding.pgBar.visibility = View.VISIBLE
+        mainScreenActivity.pgBar?.visibility = View.VISIBLE
         arrayList.clear()
         database.collection(collectionName)
             .addSnapshotListener { snapshots, e ->
@@ -79,12 +72,12 @@ class AddVendorFragment : Fragment(),Interfaces {
 
                     when (snapshot.type) {
                         DocumentChange.Type.ADDED -> {
-                            mainActivity.binding.pgBar.visibility = View.GONE
+                            mainScreenActivity.pgBar?.visibility = View.GONE
                             userModel?.let { arrayList.add(it) }
                             Log.e(ContentValues.TAG, "userModelList ${arrayList.size}")
                         }
                         DocumentChange.Type.MODIFIED -> {
-                            mainActivity.binding.pgBar.visibility = View.GONE
+                            mainScreenActivity.pgBar?.visibility = View.GONE
                             userModel?.let {
                                 var index = getIndex(userModel)
                                 if (index > -1) {
@@ -93,7 +86,7 @@ class AddVendorFragment : Fragment(),Interfaces {
                             }
                         }
                         DocumentChange.Type.REMOVED -> {
-                            mainActivity.binding.pgBar.visibility = View.GONE
+                            mainScreenActivity.pgBar?.visibility = View.GONE
                             userModel?.let {
                                 var index = getIndex(userModel)
                                 if (index > -1) {
@@ -105,11 +98,41 @@ class AddVendorFragment : Fragment(),Interfaces {
                 }
                 adapter.notifyDataSetChanged()
             }
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.ivMore.setOnClickListener {
+            val popupMenu = PopupMenu(mainScreenActivity,binding.ivMore)
+            // Inflating popup menu from popup_menu.xml file
+            popupMenu.menuInflater.inflate(R.menu.pop_up_menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener { item: MenuItem -> // Toast message on menu item clicked
+                when (item.itemId) {
+                    R.id.popUpLogout ->{
+                        auth.signOut()
+                        var intent = Intent(mainScreenActivity,LoginActivity::class.java)
+                        startActivity(intent)
+                        mainScreenActivity.finish()
+                    }
+                    else->{}
+                }
+                true
+            }
+            popupMenu.show()
+        }
         binding.fabAdd.setOnClickListener {
             dialog()
         }
@@ -136,7 +159,7 @@ class AddVendorFragment : Fragment(),Interfaces {
     }
     fun dialog(){
         var dialogBinding = VendorAddDialogBinding.inflate(layoutInflater)
-        var dialog = Dialog(mainActivity).apply {
+        var dialog = Dialog(mainScreenActivity).apply {
             setContentView(dialogBinding.root)
             window?.setLayout(
                 WindowManager.LayoutParams.MATCH_PARENT,
@@ -179,17 +202,17 @@ class AddVendorFragment : Fragment(),Interfaces {
                                 .addOnSuccessListener {
                                     dialogBinding.pgBar.visibility = View.GONE
                                     dialogBinding.btnAdd.visibility = View.VISIBLE
-                                    Toast.makeText(mainActivity, "Added", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(mainScreenActivity, "Added", Toast.LENGTH_SHORT).show()
                                     this.dismiss()
                                 }.addOnFailureListener {
                                     dialogBinding.pgBar.visibility = View.GONE
                                     dialogBinding.btnAdd.visibility = View.VISIBLE
-                                    Toast.makeText(mainActivity, "Failed", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(mainScreenActivity, "Failed", Toast.LENGTH_SHORT).show()
                                 }
                         }.addOnFailureListener {
                             dialogBinding.pgBar.visibility = View.GONE
                             dialogBinding.btnAdd.visibility = View.VISIBLE
-                            Toast.makeText(mainActivity, "Email Already Exists", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(mainScreenActivity, "Email Already Exists", Toast.LENGTH_SHORT).show()
                         }
 
                 }

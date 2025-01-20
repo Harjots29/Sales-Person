@@ -5,160 +5,309 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="center"
+    android:background="@color/background"
     tools:context=".OutFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
+    <TextView
+        android:id="@+id/welcomeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vendor Name :"
-            android:textSize="25sp"
-            android:layout_margin="20dp"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name"
-            android:textSize="25sp"
-            android:layout_margin="20dp"/>
-    </LinearLayout>
-    <LinearLayout
+        android:text="Details!"
+        android:fontFamily="@font/aclonica"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:textColor="#007BFF"
+        android:textSize="50sp"/>
+
+    <TextView
+        android:id="@+id/tvAddSalesPerson"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="In Time :"
-            android:textSize="25sp"
-            android:layout_marginEnd="50dp"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/tvInTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Time"
-            android:textSize="25sp"
-            android:layout_margin="20dp"/>
-    </LinearLayout>
-    <LinearLayout
+        android:text="Here are the details! Save the out time, product and quantity..."
+        android:textSize="20sp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/welcomeText"/>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Out Time :"
-            android:textSize="25sp"
-            android:layout_marginEnd="50dp"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/tvOutTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Time"
-            android:textSize="25sp"
-            android:layout_margin="20dp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LatLong :"
-            android:textSize="25sp"
-            android:layout_marginStart="20dp"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/tvLatLong"
+        app:cardElevation="20dp"
+        android:padding="16dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="30dp"
+        app:cardCornerRadius="8dp"
+        app:cardBackgroundColor="@color/card_background">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="LatLong"
-            android:textSize="25sp"
-            android:layout_weight="1"
-            android:layout_margin="20dp"/>
-        <ImageView
-            android:id="@+id/ivInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_info"
-            android:layout_weight="1"
-            android:layout_gravity="center"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Product Name :"
-            android:textSize="25sp"
-            android:layout_margin="20dp"
-            android:textStyle="bold"/>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilProductName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:hint="Enter Product Name">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etProductName"
+            android:padding="20dp"
+            android:orientation="vertical">
+
+            <!-- Each Row -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quantity :"
-            android:textSize="25sp"
-            android:layout_margin="20dp"
-            android:textStyle="bold"/>
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilquantity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:hint="Enter Quantity">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etQuantity"
-                android:inputType="number"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_person"
+                    android:layout_marginEnd="8dp"
+                    app:tint="@color/icon_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vendor:"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/primary_text" />
+
+                <TextView
+                    android:id="@+id/tvVendor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="John Doe"
+                    android:layout_marginStart="8dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/secondary_text" />
+            </LinearLayout>
+
+            <!-- Repeat similar rows for other details -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_clock"
+                    android:layout_marginEnd="8dp"
+                    app:tint="@color/icon_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="In Time:"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/primary_text" />
+
+                <TextView
+                    android:id="@+id/tvInTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10:00 AM"
+                    android:layout_marginStart="8dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/secondary_text" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_exit"
+                    android:layout_marginEnd="8dp"
+                    app:tint="@color/icon_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Out Time:"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/tvOutTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5:00 PM"
+                    android:textSize="18sp"
+                    android:textColor="@color/secondary_text" />
+            </LinearLayout>
+
+
+
+
+
+            <!-- In Latitude -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_gps"
+                    android:layout_marginEnd="8dp"
+                    app:tint="@color/icon_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Latitude:"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/tvInLat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="37.7749° N"
+                    android:textSize="18sp"
+                    android:textColor="@color/secondary_text" />
+            </LinearLayout>
+
+            <!-- In Longitude -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_gps"
+                    android:layout_marginEnd="8dp"
+                    app:tint="@color/icon_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Longitude:"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:id="@+id/tvInLon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-122.4194° W"
+                    android:textSize="18sp"
+                    android:textColor="@color/secondary_text" />
+                <ImageView
+                    android:id="@+id/ivInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_info"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <!-- Product -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_product"
+                    android:layout_marginEnd="8dp"
+                    app:tint="@color/icon_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Product:"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginEnd="8dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilProductName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:hint="Enter Product Name">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etProductName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Quantity -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingVertical="8dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_inventory"
+                    android:layout_marginEnd="8dp"
+                    app:tint="@color/icon_color" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quantity:"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-black"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginEnd="8dp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilquantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:hint="Enter Quantity">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etQuantity"
+                        android:inputType="number"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <!-- Add other rows for Out Time, In Loc, etc., in a similar manner -->
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSave"
-        app:cornerRadius="10dp"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:text="Save"/>
-<!--    <Button-->
-<!--        android:id="@+id/btnDelete"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_gravity="end"-->
-<!--        android:layout_marginTop="50dp"-->
-<!--        android:layout_marginEnd="20dp"-->
-<!--        android:text="Delete from database"/>-->
+        android:text="Save"
+        app:cornerRadius="10dp"
+        android:backgroundTint="#007BFF"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"/>
 </LinearLayout>

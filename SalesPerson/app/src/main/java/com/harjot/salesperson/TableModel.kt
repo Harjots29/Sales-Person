@@ -6,5 +6,6 @@ data class TableModel(
     var inTime:String?=null,
     var outTime:String?=null,
     var productName: String?=null,
-    var quantity: String?=null
+    var quantity: String?=null,
+    var date:String?=null
 )

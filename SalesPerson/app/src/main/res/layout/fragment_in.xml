@@ -6,77 +6,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@color/background"
     tools:context=".InFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-<!--    <ProgressBar-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:id="@+id/pgBar"-->
-<!--        android:visibility="gone"/>-->
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="center"-->
-<!--        android:orientation="horizontal">-->
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Vendor Name"-->
-<!--            android:textSize="25sp"-->
-<!--            android:layout_margin="20dp"-->
-<!--            android:textStyle="bold"/>-->
-<!--        <com.google.android.material.textfield.TextInputLayout-->
-<!--            android:id="@+id/tilName"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginEnd="20dp"-->
-<!--            android:hint="Enter Name">-->
-<!--            <com.google.android.material.textfield.TextInputEditText-->
-<!--                android:id="@+id/etName"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent" />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-<!--    </LinearLayout>-->
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="center"-->
-<!--        android:orientation="horizontal">-->
-<!--        <TextView-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="In Time :"-->
-<!--            android:textSize="25sp"-->
-<!--            android:layout_marginEnd="50dp"-->
-<!--            android:textStyle="bold"/>-->
-<!--        <TextView-->
-<!--            android:id="@+id/tvTime"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Time"-->
-<!--            android:textSize="25sp"-->
-<!--            android:layout_margin="20dp"-->
-<!--            android:textStyle="bold"/>-->
-<!--    </LinearLayout>-->
-
-<!--    <com.google.android.material.button.MaterialButton-->
-<!--        android:id="@+id/btnSave"-->
-<!--        app:cornerRadius="10dp"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_margin="30dp"-->
-<!--        android:text="Save"/>-->
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Explore!"
+        android:fontFamily="@font/aclonica"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:textColor="#007BFF"
+        android:textSize="50sp"/>
+    <TextView
+        android:id="@+id/tvAddSalesPerson"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Vendors here..."
+        android:textSize="20sp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/welcomeText"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rvList"/>
+        android:id="@+id/rvList"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/tvAddSalesPerson"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_add"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:src="@drawable/ic_add"
+        app:tint="@color/white"
+        android:backgroundTint="#007BFF"
+        android:layout_alignParentBottom="true"
         android:layout_margin="30dp"/>
 </RelativeLayout>

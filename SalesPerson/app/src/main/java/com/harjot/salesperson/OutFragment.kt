@@ -35,7 +35,7 @@ class OutFragment : Fragment() {
         FragmentOutBinding.inflate(layoutInflater)
     }
     private var auth: FirebaseAuth = Firebase.auth
-    lateinit var mainActivity: MainActivity
+    lateinit var mainScreenActivity: MainScreenActivity
 
     val collectionName = "SalesPerson"
     val userList = mutableListOf<Model>()
@@ -64,7 +64,7 @@ class OutFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainActivity = activity as MainActivity
+        mainScreenActivity = activity as MainScreenActivity
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -95,9 +95,10 @@ class OutFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.tvOutTime.setText(formattedTime)
 //        binding.btnDelete.visibility = View.VISIBLE
-        binding.tvName.setText(name)
+        binding.tvVendor.setText(name)
         binding.tvInTime.setText(inTime)
-        binding.tvLatLong.setText(inLat + inLong)
+        binding.tvInLat.setText(inLat)
+        binding.tvInLon.setText(inLong)
         binding.etProductName.setText(productName)
         binding.etQuantity.setText(quantity)
 
@@ -117,7 +118,7 @@ class OutFragment : Fragment() {
                     .set(
                         Model(
                             id = auth.currentUser?.uid,
-                            vendorName = binding.tvName.text.toString(),
+                            vendorName = binding.tvVendor.text.toString(),
                             inTime = binding.tvInTime.text.toString(),
                             outTime = binding.tvOutTime.text.toString(),
                             inLat = inLat,
@@ -132,9 +133,9 @@ class OutFragment : Fragment() {
                         )
                     ).addOnSuccessListener {
                         findNavController().popBackStack()
-                        Toast.makeText(mainActivity, "added", Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(mainActivity, "added", Toast.LENGTH_SHORT).show()
                     }.addOnFailureListener {
-                        Toast.makeText(mainActivity, "failure", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(mainScreenActivity, "Failed", Toast.LENGTH_SHORT).show()
                     }
             }
         }
@@ -155,7 +156,7 @@ class OutFragment : Fragment() {
 //        }
         binding.ivInfo.setOnClickListener {
             var dialogBinding = AddressDialogBinding.inflate(layoutInflater)
-            var dialog = Dialog(mainActivity).apply {
+            var dialog = Dialog(mainScreenActivity).apply {
                 setContentView(dialogBinding.root)
                 window?.setLayout(
                     WindowManager.LayoutParams.MATCH_PARENT,

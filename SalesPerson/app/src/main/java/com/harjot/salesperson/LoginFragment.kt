@@ -16,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import com.harjot.salesperson.databinding.FragmentLoginBinding
 import java.util.Date
 import java.util.regex.Pattern
+import kotlin.math.log
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,14 +33,14 @@ class LoginFragment : Fragment(){
         FragmentLoginBinding.inflate(layoutInflater)
     }
     private var auth: FirebaseAuth = Firebase.auth
-    lateinit var mainActivity: MainActivity
+    lateinit var loginActivtiy: LoginActivtiy
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainActivity = activity as MainActivity
+        loginActivtiy = activity as LoginActivtiy
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -73,24 +74,26 @@ class LoginFragment : Fragment(){
             }else{
                 binding.pgBar.visibility = View.VISIBLE
                 binding.btnLogin.visibility = View.GONE
-                binding.linearLayout.visibility = View.GONE
+                binding.btnLogin.visibility = View.GONE
                 var email = binding.etEmail.text.toString().trim()
                 var password = binding.etPassword.text.toString().trim()
                 auth.signInWithEmailAndPassword(email,password)
                     .addOnSuccessListener {
                         binding.pgBar.visibility = View.GONE
                         binding.btnLogin.visibility = View.VISIBLE
-                        binding.linearLayout.visibility = View.VISIBLE
-                        findNavController().navigate(R.id.home)
-                        
-                        Toast.makeText(mainActivity, "Login Successfully", Toast.LENGTH_SHORT).show()
+                        binding.btnLogin.visibility = View.VISIBLE
+                        var intent = Intent(loginActivtiy,MainScreenActivity::class.java)
+                        startActivity(intent)
+                        loginActivtiy.finish()
+
+                        Toast.makeText(loginActivtiy, "Login Successfully", Toast.LENGTH_SHORT).show()
 
                     }
                     .addOnFailureListener {
                         binding.pgBar.visibility = View.GONE
                         binding.btnLogin.visibility = View.VISIBLE
-                        binding.linearLayout.visibility = View.VISIBLE
-                        Toast.makeText(mainActivity, "Password or Email Incorrect", Toast.LENGTH_SHORT).show()
+                        binding.btnLogin.visibility = View.VISIBLE
+                        Toast.makeText(loginActivtiy, "Password or Email Incorrect", Toast.LENGTH_SHORT).show()
                     }
             }
         }

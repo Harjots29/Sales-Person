@@ -29,7 +29,7 @@ class HistoryFragment : Fragment(),HistoryInterface {
     }
     var arrayList = ArrayList<HistoryModel>()
     val list = mutableListOf<HistoryModel>()
-    lateinit var mainActivity: MainActivity
+    lateinit var mainScreenActivity: MainScreenActivity
     private lateinit var recyclerView: RecyclerView
     private val database = FirebaseFirestore.getInstance()
     private val collectionName = "SalesPerson"
@@ -41,7 +41,7 @@ class HistoryFragment : Fragment(),HistoryInterface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainActivity = activity as MainActivity
+        mainScreenActivity = activity as MainScreenActivity
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -60,7 +60,7 @@ class HistoryFragment : Fragment(),HistoryInterface {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = requireView().findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(mainActivity)
+        recyclerView.layoutManager = LinearLayoutManager(mainScreenActivity)
         fetchData()
 
     }
@@ -102,19 +102,21 @@ class HistoryFragment : Fragment(),HistoryInterface {
                             list.add(HistoryModel(
                                 id,
                                 vendorName,
+                                inTime,
+                                outTime,
                                 date))
                         }
                     }else{ }
                 }
                 recyclerView.adapter = HistoryAdapter(list,this)
                 if(list.isEmpty()){
-                    Toast.makeText(mainActivity, "Nothing to Show", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(mainScreenActivity, "Nothing to Show", Toast.LENGTH_SHORT).show()
                 }else{
 
                 }
             }
             .addOnFailureListener { e ->
-                Toast.makeText(mainActivity, "Failed to fetch data: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(mainScreenActivity, "Failed to fetch data: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 

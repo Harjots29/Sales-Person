@@ -15,8 +15,7 @@ class VendorAdapter(var arrayList:ArrayList<VendorModel>, var interfaces: Interf
         var name = view.findViewById<TextView>(R.id.tvName)
         var email = view.findViewById<TextView>(R.id.tvEmail)
         var contact = view.findViewById<TextView>(R.id.tvContact)
-        var lv = view.findViewById<LinearLayout>(R.id.lv)
-        var card = view.findViewById<CardView>(R.id.card)
+        var lv = view.findViewById<CardView>(R.id.lv)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -32,16 +31,16 @@ class VendorAdapter(var arrayList:ArrayList<VendorModel>, var interfaces: Interf
         holder.name.setText(arrayList[position].name)
         holder.email.setText(arrayList[position].email)
         holder.contact.setText(arrayList[position].contact)
-        holder.card.setBackgroundColor(getRandomColor())
+//        holder.card.setBackgroundColor(getRandomColor())
         holder.lv.setOnClickListener {
             interfaces.onClick(position)
         }
     }
-    private fun getRandomColor(): Int {
-        val random = kotlin.random.Random
-        val red = random.nextInt(256) // Random value between 0 and 255
-        val green = random.nextInt(256)
-        val blue = random.nextInt(256)
-        return Color.rgb(red, green, blue)
-    }
+//    private fun getRandomColor(): Int {
+//        val random = kotlin.random.Random
+//        val red = random.nextInt(256) // Random value between 0 and 255
+//        val green = random.nextInt(256)
+//        val blue = random.nextInt(256)
+//        return Color.rgb(red, green, blue)
+//    }
 }

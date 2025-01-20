@@ -25,7 +25,7 @@ class HistoryDetails : Fragment() {
     }
     val database=FirebaseFirestore.getInstance()
 
-    lateinit var mainActivity: MainActivity
+    lateinit var mainScreenActivity: MainScreenActivity
     var id = ""
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -33,7 +33,7 @@ class HistoryDetails : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainActivity = activity as MainActivity
+        mainScreenActivity = activity as MainScreenActivity
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)

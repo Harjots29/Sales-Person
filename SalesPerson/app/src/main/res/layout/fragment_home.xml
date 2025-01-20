@@ -1,41 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="center"
+    android:background="@color/background"
     tools:context=".Home">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/welcomeLayout"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/welcomeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome!"
+            android:fontFamily="@font/aclonica"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:textColor="#007BFF"
+            android:textSize="50sp"/>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cvIn"
+        <ImageView
+            android:id="@+id/ivMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
-            android:elevation="20dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_more" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tvText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Explore the Vendors..."
+        android:textSize="18sp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeLayout"/>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvIn"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardElevation="20dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="50dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:cardCornerRadius="20dp"
-            android:layout_weight="1">
+            app:layout_constraintDimensionRatio="1:1">
+
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:src="@drawable/enter"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/explore" />
         </androidx.cardview.widget.CardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnHistory"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:text="See History"
-        android:textSize="10dp"
+        android:textSize="14dp"
         android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/cvIn"
+        app:layout_constraintEnd_toEndOf="parent"
         app:cornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:backgroundTint="@color/blue"
         android:textStyle="bold"
-        android:layout_below="@+id/cvIn"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="100dp"
         tools:ignore="NotSibling" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

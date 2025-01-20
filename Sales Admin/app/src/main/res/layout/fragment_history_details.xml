@@ -5,58 +5,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
+    android:background="#F1F8FF"
     tools:context=".HistoryDetails">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_marginTop="20dp"
         android:padding="16dp">
 
         <!-- Header Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingBottom="16dp">
-
-            <TextView
-                android:layout_width="0dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Details"
-                android:textSize="36sp"
-                android:textColor="@color/primary_text"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-medium" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Details"
+                    android:textSize="50sp"
+                    android:textColor="#007BFF"
+                    android:fontFamily="@font/aclonica" />
 
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date"
+                    android:textSize="18sp"
+                    android:textColor="@color/secondary_text"
+                    android:padding="8dp"
+                    android:background="@drawable/date_background"
+                    android:gravity="center" />
+            </LinearLayout>
             <TextView
-                android:id="@+id/tvDate"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Date"
-                android:textSize="18sp"
-                android:textColor="@color/secondary_text"
-                android:padding="8dp"
-                android:background="@drawable/date_background"
-                android:gravity="center" />
+                android:text="See the details of the History here..."
+                android:textSize="20sp"/>
         </LinearLayout>
 
         <!-- Details Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:elevation="4dp"
+            android:elevation="10dp"
             android:padding="16dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginEnd="10dp"
             app:cardCornerRadius="8dp"
             app:cardBackgroundColor="@color/card_background">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="20dp"
                 android:orientation="vertical">
 
                 <!-- Each Row -->
@@ -86,7 +99,7 @@
                         android:id="@+id/tvVendor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="John Doe"
+                        android:text=" "
                         android:layout_marginStart="8dp"
                         android:textSize="18sp"
                         android:textColor="@color/secondary_text" />
@@ -119,7 +132,7 @@
                         android:id="@+id/tvInTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10:00 AM"
+                        android:text=" "
                         android:layout_marginStart="8dp"
                         android:textSize="18sp"
                         android:textColor="@color/secondary_text" />
@@ -151,7 +164,7 @@
                         android:id="@+id/tvOutTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5:00 PM"
+                        android:text=" "
                         android:textSize="18sp"
                         android:textColor="@color/secondary_text" />
                 </LinearLayout>
@@ -183,7 +196,7 @@
                         android:id="@+id/tvInLoc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="123 Main Street"
+                        android:text=" "
                         android:textSize="18sp"
                         android:textColor="@color/secondary_text" />
                 </LinearLayout>
@@ -215,7 +228,7 @@
                         android:id="@+id/tvOutLoc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="456 Park Avenue"
+                        android:text=" "
                         android:textSize="18sp"
                         android:textColor="@color/secondary_text" />
                 </LinearLayout>
@@ -249,7 +262,7 @@
                             android:id="@+id/tvProduct"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Example Product"
+                            android:text=" "
                             android:textSize="18sp"
                             android:textColor="@color/secondary_text" />
                     </LinearLayout>
@@ -282,7 +295,7 @@
                             android:id="@+id/tvQuantity"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="10"
+                            android:text=" "
                             android:textSize="18sp"
                             android:textColor="@color/secondary_text" />
                     </LinearLayout>
@@ -315,7 +328,7 @@
                             android:id="@+id/tvInLat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="37.7749° N"
+                            android:text=" "
                             android:textSize="18sp"
                             android:textColor="@color/secondary_text" />
                     </LinearLayout>
@@ -348,7 +361,7 @@
                             android:id="@+id/tvOutLat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="38.9072° N"
+                            android:text=" "
                             android:textSize="18sp"
                             android:textColor="@color/secondary_text" />
                     </LinearLayout>
@@ -381,7 +394,7 @@
                             android:id="@+id/tvInLon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="-122.4194° W"
+                            android:text=" "
                             android:textSize="18sp"
                             android:textColor="@color/secondary_text" />
                     </LinearLayout>
@@ -414,7 +427,7 @@
                             android:id="@+id/tvOutLon"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="-77.0369° W"
+                            android:text=" "
                             android:textSize="18sp"
                             android:textColor="@color/secondary_text" />
                     </LinearLayout>

@@ -6,6 +6,22 @@
     android:orientation="vertical"
     android:padding="20dp">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:textSize="30sp"
+        android:fontFamily="@font/aclonica"
+        android:textColor="#007BFF"
+        android:text="Add Details!"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="20dp"
+        android:text="Generate Email and Password for Sales Person..."
+        android:textSize="16sp"/>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,9 +90,11 @@
     </LinearLayout>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAdd"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Add"
+        app:cornerRadius="10dp"
+        android:backgroundTint="#007BFF"
         android:layout_gravity="center"
         android:layout_margin="20dp"/>
 </LinearLayout>

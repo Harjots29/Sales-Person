@@ -1,12 +1,17 @@
 package com.harjot.salesperson
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.harjot.salesperson.databinding.FragmentHomeBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -23,13 +28,16 @@ class Home : Fragment() {
     val binding by lazy {
         FragmentHomeBinding.inflate(layoutInflater)
     }
+    var auth = Firebase.auth
     lateinit var navController: NavController
+    lateinit var mainScreenActivity: MainScreenActivity
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mainScreenActivity = activity as MainScreenActivity
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -54,6 +62,26 @@ class Home : Fragment() {
         binding.btnHistory.setOnClickListener {
             navController.navigate(R.id.historyFragment)
         }
+        binding.ivMore.setOnClickListener {
+            val popupMenu = PopupMenu(mainScreenActivity,binding.ivMore)
+            // Inflating popup menu from popup_menu.xml file
+            popupMenu.menuInflater.inflate(R.menu.pop_up_menu, popupMenu.menu)
+            popupMenu.setOnMenuItemClickListener { item: MenuItem ->
+                when (item.itemId) {
+                    R.id.popUpLogout ->{
+                        auth.signOut()
+                        var intent = Intent(mainScreenActivity,LoginActivtiy::class.java)
+                        startActivity(intent)
+                        mainScreenActivity.finish()
+                    }
+                    else->{}
+                }
+                true
+            }
+            popupMenu.show()
+        }
+
+
     }
 
     companion object {

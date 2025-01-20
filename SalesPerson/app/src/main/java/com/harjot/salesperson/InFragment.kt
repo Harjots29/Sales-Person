@@ -52,7 +52,7 @@ class InFragment : Fragment(),Interfaces {
         FragmentInBinding.inflate(layoutInflater)
     }
     private var auth: FirebaseAuth = Firebase.auth
-    lateinit var mainActivity: MainActivity
+    lateinit var mainScreenActivity: MainScreenActivity
     var arrayList = ArrayList<Model>()
     lateinit var inAdapter: InAdapter
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -83,24 +83,13 @@ class InFragment : Fragment(),Interfaces {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainActivity = activity as MainActivity
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+        mainScreenActivity = activity as MainScreenActivity
+        mainScreenActivity.pgBar?.visibility = View.VISIBLE
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
         inAdapter = InAdapter(arrayList,this)
-        binding.rvList.layoutManager = LinearLayoutManager(mainActivity)
+        binding.rvList.layoutManager = LinearLayoutManager(mainScreenActivity)
         binding.rvList.adapter = inAdapter
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(mainActivity)
 
-        mainActivity.binding.pgBar.visibility = View.VISIBLE
         arrayList.clear()
         database.collection(collectionName)
             .whereEqualTo("id",auth.currentUser?.uid)
@@ -113,12 +102,12 @@ class InFragment : Fragment(),Interfaces {
 
                     when (snapshot.type) {
                         DocumentChange.Type.ADDED -> {
-                            mainActivity.binding.pgBar.visibility = View.GONE
+                            mainScreenActivity.pgBar?.visibility = View.GONE
                             userModel?.let { arrayList.add(it) }
                             Log.e(ContentValues.TAG, "userModelList ${arrayList.size}")
                         }
                         DocumentChange.Type.MODIFIED -> {
-                            mainActivity.binding.pgBar.visibility = View.GONE
+                            mainScreenActivity.pgBar?.visibility = View.GONE
                             userModel?.let {
                                 var index = getIndex(userModel)
                                 if (index > -1) {
@@ -127,7 +116,7 @@ class InFragment : Fragment(),Interfaces {
                             }
                         }
                         DocumentChange.Type.REMOVED -> {
-                            mainActivity.binding.pgBar.visibility = View.GONE
+                            mainScreenActivity.pgBar?.visibility = View.GONE
                             userModel?.let {
                                 var index = getIndex(userModel)
                                 if (index > -1) {
@@ -139,6 +128,19 @@ class InFragment : Fragment(),Interfaces {
                 }
                 inAdapter.notifyDataSetChanged()
             }
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(mainScreenActivity)
 
         if (checkPermission()){
             getLastLocation()
@@ -184,18 +186,18 @@ class InFragment : Fragment(),Interfaces {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     getLastLocation()
                 }else{
-                    Toast.makeText(mainActivity, "Location Permission Denied", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(mainScreenActivity, "Location Permission Denied", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
     fun checkPermission():Boolean{
-        return ActivityCompat.checkSelfPermission(mainActivity,
+        return ActivityCompat.checkSelfPermission(mainScreenActivity,
             android.Manifest.permission.ACCESS_FINE_LOCATION)==PackageManager.PERMISSION_GRANTED
     }
     fun requestPermission(){
         ActivityCompat.requestPermissions(
-            mainActivity,
+            mainScreenActivity,
             arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION,
                 android.Manifest.permission.ACCESS_COARSE_LOCATION),
             permissionRequestCode
@@ -203,10 +205,10 @@ class InFragment : Fragment(),Interfaces {
     }
     fun getLastLocation(){
         pgBar?.visibility = View.VISIBLE
-        if (ActivityCompat.checkSelfPermission(mainActivity,
+        if (ActivityCompat.checkSelfPermission(mainScreenActivity,
                 android.Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                mainActivity,android.Manifest.permission.ACCESS_COARSE_LOCATION
+                mainScreenActivity,android.Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED){
             return
         }
@@ -230,7 +232,7 @@ class InFragment : Fragment(),Interfaces {
             }
     }
     fun getCompleteAddressString(latitude:Double,longitde:Double):String{
-        val geocoder = Geocoder(mainActivity, Locale.getDefault())
+        val geocoder = Geocoder(mainScreenActivity, Locale.getDefault())
         try {
             val addresses = geocoder.getFromLocation(latitude,longitde,1)
             if (addresses!=null && addresses.isNotEmpty()){
@@ -265,7 +267,7 @@ class InFragment : Fragment(),Interfaces {
     }
     fun dialog(){
         var dialogBinding = DialogLayoutBinding.inflate(layoutInflater)
-        var dialog = Dialog(mainActivity).apply {
+        var dialog = Dialog(mainScreenActivity).apply {
             setContentView(dialogBinding.root)
             window?.setLayout(
                 WindowManager.LayoutParams.MATCH_PARENT,
@@ -296,12 +298,12 @@ class InFragment : Fragment(),Interfaces {
                         dialogBinding.pgBar.visibility = View.GONE
                         dialogBinding.btnAdd.visibility = View.VISIBLE
                         this.dismiss()
-                        Toast.makeText(mainActivity, "success", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(mainScreenActivity, "success", Toast.LENGTH_SHORT).show()
                     }
                         .addOnFailureListener {
                             dialogBinding.pgBar.visibility = View.GONE
                             dialogBinding.btnAdd.visibility = View.VISIBLE
-                            Toast.makeText(mainActivity, "failure", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(mainScreenActivity, "failure", Toast.LENGTH_SHORT).show()
 
                         }
                     inAdapter.notifyDataSetChanged()

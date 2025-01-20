@@ -1,5 +1,6 @@
 package com.harjot.salesadmin
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import com.harjot.salesadmin.databinding.FragmentLoginBinding
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.regex.Pattern
+import kotlin.math.log
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,7 +32,7 @@ class LoginFragment : Fragment() {
     val binding by lazy {
         FragmentLoginBinding.inflate(layoutInflater)
     }
-    lateinit var mainActivity: MainActivity
+    lateinit var loginActivity: LoginActivity
     private var auth: FirebaseAuth = Firebase.auth
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -38,7 +40,7 @@ class LoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainActivity = activity as MainActivity
+        loginActivity = activity as LoginActivity
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -75,21 +77,22 @@ class LoginFragment : Fragment() {
                 binding.etPassword.error="Enter Atleast 6 Characters"
             }else{
                 binding.pgBar.visibility = View.VISIBLE
-                binding.linearLayout.visibility = View.GONE
+                binding.btnLogin.visibility = View.GONE
                 var email = binding.etEmail.text.toString().trim()
                 var password = binding.etPassword.text.toString().trim()
                 auth.signInWithEmailAndPassword(email,password)
                     .addOnSuccessListener {
                         binding.pgBar.visibility = View.GONE
-                        binding.linearLayout.visibility = View.VISIBLE
-                        findNavController().navigate(R.id.addVendorFragment)
-                        Toast.makeText(mainActivity, "Login Successfully", Toast.LENGTH_SHORT).show()
+                        binding.btnLogin.visibility = View.VISIBLE
+                        var intent = Intent(loginActivity,MainScreenActivity::class.java)
+                        startActivity(intent)
+                        Toast.makeText(loginActivity, "Login Successfully", Toast.LENGTH_SHORT).show()
 
                     }
                     .addOnFailureListener {
-                        binding.linearLayout.visibility = View.VISIBLE
+                        binding.btnLogin.visibility = View.VISIBLE
                         binding.pgBar.visibility = View.GONE
-                        Toast.makeText(mainActivity, "Password or Email Incorrect", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(loginActivity, "Password or Email Incorrect", Toast.LENGTH_SHORT).show()
                     }
             }
         }

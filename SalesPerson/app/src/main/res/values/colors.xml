@@ -2,4 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background">#F1F8FF</color>
+    <color name="blue">#007BFF</color>
+    <color name="primary_text">#212121</color> <!-- Dark Gray for main text -->
+    <color name="secondary_text">#757575</color> <!-- Medium Gray for secondary text -->
+    <color name="icon_color">#007BFF</color> <!-- blue for icons -->
+    <color name="date_background_color">#E0F7FA</color> <!-- Light Cyan for date background -->
+    <color name="date_border_color">#00ACC1</color> <!-- Teal for date border -->
+    <color name="card_background">#FFFFFF</color> <!-- White for card background -->
+    <color name="background_color">#F5F5F5</color>
 </resources>

@@ -1,10 +1,12 @@
 package com.harjot.salesperson
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +14,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.harjot.salesperson.databinding.FragmentHistoryBinding
+import com.harjot.salesperson.databinding.HistoryDialogBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,7 +26,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [HistoryFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class HistoryFragment : Fragment() {
+class HistoryFragment : Fragment(),HistoryInterface {
     val binding by lazy {
         FragmentHistoryBinding.inflate(layoutInflater)
     }
@@ -31,7 +34,8 @@ class HistoryFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private val database = FirebaseFirestore.getInstance()
     private val collectionName = "SalesPerson"
-    lateinit var mainActivity: MainActivity
+    lateinit var mainScreenActivity: MainScreenActivity
+    val list = mutableListOf<TableModel>()
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -39,7 +43,7 @@ class HistoryFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mainActivity = activity as MainActivity
+        mainScreenActivity = activity as MainScreenActivity
 
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
@@ -61,7 +65,7 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = requireView().findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(mainActivity)
+        recyclerView.layoutManager = LinearLayoutManager(mainScreenActivity)
         fetchData()
     }
 
@@ -87,7 +91,8 @@ class HistoryFragment : Fragment() {
     private fun fetchData() {
         database.collection(collectionName).get()
             .addOnSuccessListener { documents ->
-                val list = mutableListOf<TableModel>()
+
+                list.clear()
                 for (document in documents) {
                     val salesId = document.getString("id") ?: ""
                     if (salesId == auth.currentUser?.uid) {
@@ -97,6 +102,7 @@ class HistoryFragment : Fragment() {
                         val outTime = document.getString("outTime") ?: ""
                         val productName = document.getString("productName") ?: ""
                         val quantity = document.getString("quantity") ?: ""
+                        val date = document.getString("date") ?: ""
 
                         if (productName != null) {
                             list.add(
@@ -106,16 +112,62 @@ class HistoryFragment : Fragment() {
                                     inTime,
                                     outTime,
                                     productName,
-                                    quantity
+                                    quantity,
+                                    date
                                 )
                             )
                         }
                     }else{ }
                 }
-                recyclerView.adapter = TableAdapter(list)
+                recyclerView.adapter = TableAdapter(list,this)
             }
             .addOnFailureListener { e ->
-                Toast.makeText(mainActivity, "Failed to fetch data: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(mainScreenActivity, "Failed to fetch data: ${e.message}", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    override fun details(position: Int) {
+        var dialogBinding = HistoryDialogBinding.inflate(layoutInflater)
+        var dialog = Dialog(mainScreenActivity).apply {
+            setContentView(dialogBinding.root)
+            setCancelable(true)
+            window?.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.WRAP_CONTENT
+            )
+            database.collection("SalesPerson").document(list[position].id!!).get()
+                .addOnSuccessListener { documentSnapshot->
+                    if (documentSnapshot.exists()){
+                        val vendorName = documentSnapshot.getString("vendorName")
+                        val inTime = documentSnapshot.getString("inTime")
+                        val outTime = documentSnapshot.getString("outTime")
+                        val productName = documentSnapshot.getString("productName")
+                        val quantity = documentSnapshot.getString("quantity")
+                        val inLoc = documentSnapshot.getString("inLocation")
+                        val outLoc = documentSnapshot.getString("outLocation")
+                        val inLat = documentSnapshot.getString("inLat")
+                        val outLat = documentSnapshot.getString("outLat")
+                        val inLong = documentSnapshot.getString("inLong")
+                        val outLong = documentSnapshot.getString("outLong")
+                        val date = documentSnapshot.getString("date")
+
+                        dialogBinding.tvVendor.setText(vendorName)
+                        dialogBinding.tvInTime.setText(inTime)
+                        dialogBinding.tvOutTime.setText(outTime)
+                        dialogBinding.tvInLoc.setText(inLoc)
+                        dialogBinding.tvOutLoc.setText(outLoc)
+                        dialogBinding.tvProduct.setText(productName)
+                        dialogBinding.tvQuantity.setText(quantity)
+                        dialogBinding.tvInLat.setText(inLat)
+                        dialogBinding.tvOutLat.setText(outLat)
+                        dialogBinding.tvInLon.setText(inLong)
+                        dialogBinding.tvOutLon.setText(outLong)
+                        dialogBinding.tvDate.setText(date)
+                    }else{
+
+                    }
+                }
+            show()
+        }
     }
 }

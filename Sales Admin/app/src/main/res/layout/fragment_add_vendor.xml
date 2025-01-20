@@ -1,22 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F1F8FF"
     tools:context=".AddVendorFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/welcomeLayout">
+    <TextView
+        android:id="@+id/welcomeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Welcome!"
+        android:fontFamily="@font/aclonica"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:layout_marginStart="10dp"
+        android:textColor="#007BFF"
+        android:textSize="50sp"/>
+
+        <ImageView
+            android:id="@+id/ivMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_more" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tvAddSalesPerson"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Sales Person here..."
+        android:textSize="20sp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@+id/welcomeLayout"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/rvList"/>
+        android:id="@+id/rvList"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/tvAddSalesPerson"/>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:src="@drawable/ic_add"
+        app:tint="@color/white"
+        android:backgroundTint="#007BFF"
         android:layout_alignParentBottom="true"
         android:layout_margin="30dp"/>
 
